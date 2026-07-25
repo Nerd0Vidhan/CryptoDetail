@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.core.view.WindowCompat
 import `in`.mato.cryptodetail.presentation.cryptodetail.CryptoDetailRoute
 import `in`.mato.cryptodetail.presentation.cryptolist.CryptoListRoute
 import `in`.mato.cryptodetail.ui.theme.CryptoDetailTheme
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
         setContent {
             CryptoDetailTheme {
                 CryptoNavGraph()
