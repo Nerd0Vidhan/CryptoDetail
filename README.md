@@ -39,13 +39,13 @@ Download and install the latest APK to try the application.
 
 <p align="center">
 
-<a href="https://github.com/Nerd0Vidhan/CryptoDetail/blob/master/resources/app/CryptoDetail.apk">
+<a href="https://drive.google.com/file/d/13qPOdFHZe8VAgYtgo0mY146FxFEmCz3e/view?usp=sharing">
     <img src="https://img.shields.io/badge/Download-APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download APK"/>
 </a>
 
 </p>
 
-Or click here: **[CryptoDetail.apk](https://github.com/Nerd0Vidhan/CryptoDetail/blob/master/resources/app/CryptoDetail.apk)**
+Or click here: **[CryptoDetail.apk](https://drive.google.com/file/d/13qPOdFHZe8VAgYtgo0mY146FxFEmCz3e/view?usp=sharing)**
 
 ## Screen Recording
 
