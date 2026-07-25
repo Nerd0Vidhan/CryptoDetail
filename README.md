@@ -49,7 +49,7 @@ Or click here: **[CryptoDetail.apk](https://drive.google.com/file/d/13qPOdFHZe8V
 
 ## Screen Recording
 
-App demo video: [Watch the recording](https://github.com/Nerd0Vidhan/CryptoDetail/blob/master/resources/video/app.mp4)
+App demo video: [Watch the recording](https://drive.google.com/file/d/1iVtsZeJwHNFYzhGtmj2n_t947ddXMbzg/view?usp=sharing)
 
 ## App Screen Previews
 
