@@ -60,6 +60,7 @@ import java.util.Locale
 
 @Composable
 fun CryptoListRoute(
+    onCoinClick: (String) -> Unit,
     viewModel: CryptoListViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -67,6 +68,7 @@ fun CryptoListRoute(
         state = state,
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
         onRefresh = viewModel::refresh,
+        onCoinClick = onCoinClick,
     )
 }
 
@@ -76,6 +78,7 @@ private fun CryptoListScreen(
     state: CryptoListUiState,
     onSearchQueryChanged: (String) -> Unit,
     onRefresh: () -> Unit,
+    onCoinClick: (String) -> Unit,
 ) {
     val filteredCoins = state.coins.filter { coin ->
         coin.name.contains(state.searchQuery, ignoreCase = true) ||
@@ -133,7 +136,7 @@ private fun CryptoListScreen(
                         onRetry = onRefresh,
                     )
                     filteredCoins.isEmpty() -> EmptyState(searchQuery = state.searchQuery)
-                    else -> CoinList(coins = filteredCoins)
+                    else -> CoinList(coins = filteredCoins, onCoinClick = onCoinClick)
                 }
             }
         }
@@ -154,22 +157,23 @@ private fun SearchField(query: String, onQueryChanged: (String) -> Unit) {
 }
 
 @Composable
-private fun CoinList(coins: List<Crypto>) {
+private fun CoinList(coins: List<Crypto>, onCoinClick: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(items = coins, key = { it.id }) { coin ->
-            CoinListItem(coin)
+            CoinListItem(coin = coin, onClick = { onCoinClick(coin.id) })
         }
     }
 }
 
 @Composable
-private fun CoinListItem(coin: Crypto) {
+private fun CoinListItem(coin: Crypto, onClick: () -> Unit) {
     val changeColor = if (coin.change24h >= 0) lightGreen else red
     Card(
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth().border(
             border = BorderStroke(
                 width = 2.dp,
@@ -209,7 +213,7 @@ private fun CoinListItem(coin: Crypto) {
             }
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = coin.price.toUsd(),
+                    text = coin.price.toInr(),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )
@@ -310,10 +314,11 @@ private fun InlineError(message: String, onRetry: () -> Unit) {
     }
 }
 
-private fun Double.toUsd(): String = usdFormatter.format(this)
+private fun Double.toInr(): String = inrFormatter.format(this)
 
 private fun Double.toChangeLabel(): String = String.format(Locale.US, "%+.2f%%", this)
 
-private val usdFormatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.US).apply {
+private val inrFormatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale("en", "IN")).apply {
+    currency = java.util.Currency.getInstance("INR")
     maximumFractionDigits = 2
 }
